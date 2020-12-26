@@ -1,13 +1,17 @@
 import redis
 import sys
 import random
-redisClient = redis.Redis()
+import names
+redisClient = redis.Redis(
+    host= 'REPLACE THIS BY REDIS HOST',
+    port= 'REPLACE THIS BY REDIS PORT',
+    password= 'REPLACE THIS BY REDIS PASSWORD')
 
 def getRandomUsersAndScores():
     users = []
-    for i in range(1, 10):
+    for i in range(1, 15):
         player = {}
-        player["playerID"] = str(i)
+        player["playerID"] = names.get_first_name()
         player["score"] = random.randint(1, 100)
         users.append(player)
     return users
@@ -17,7 +21,6 @@ try:
     redisClient.ping()
     users = []
     users = getRandomUsersAndScores()
-    redis
     playerSortedSet = "players"
     # Add the users in Sorted Set
     for user in users:

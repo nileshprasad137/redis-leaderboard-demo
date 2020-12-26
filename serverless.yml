@@ -1,0 +1,42 @@
+
+service: serverless-redis-leaderboard-demo
+
+plugins:
+  - serverless-python-requirements
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  logs:
+    restApi: true
+  runtime: python3.7
+  stage: dev
+  region: us-east-1
+  environment:
+    REDIS_HOST: ${env:REDIS_HOST}
+    REDIS_PASSWORD: ${env:REDIS_PASSWORD}
+    REDIS_PORT: ${env:REDIS_PORT}
+    REGION_NAME: 'us-east-1'
+
+functions:
+  getTopPlayer:
+    handler: functions/leaderboardFunctions.getTopPlayer
+    events:
+      - http:
+          path: getTopPlayer
+          method: post
+          cors: true
+  getRankOfPlayer:
+    handler: functions/leaderboardFunctions.getRankOfPlayer
+    events:
+      - http:
+          path: getRankOfPlayer
+          method: post
+          cors: true
+  updateScore:
+    handler: functions/leaderboardFunctions.updateScore
+    events:
+      - http:
+          path: updateScore
+          method: post
+          cors: true
