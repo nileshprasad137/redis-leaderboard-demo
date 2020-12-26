@@ -10,8 +10,6 @@ def getTopPlayer(event, context):
         port=os.environ['REDIS_PORT'],
         password=os.environ['REDIS_PASSWORD']
     )
-    redisClient.set('foo', 'bar')
-    print(redisClient.get('foo'))
     requestBody = json.loads(event["body"])
     rangeLimit = int(requestBody["top"])
     playerSortedSet = "players"
