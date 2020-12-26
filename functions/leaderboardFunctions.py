@@ -1,8 +1,6 @@
 import os
-
 import redis
 import json
-
 
 def getTopPlayer(event, context):
     redisClient = redis.Redis(
@@ -28,8 +26,3 @@ def getTopPlayer(event, context):
         "body": json.dumps(topPlayersResponse)
     }
     return response
-
-
-
-
-
